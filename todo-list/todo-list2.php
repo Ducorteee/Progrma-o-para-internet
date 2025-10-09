@@ -2,7 +2,6 @@
 
 #conectar ao banco
 
-
 $localhost = 'localhost';
 $usuario = 'root';
 $senha = '';
@@ -24,7 +23,7 @@ $conn =new mysqli($localhost,$usuario,$senha,$database);
       header("location: todo-list2.php");
    }
  }
-
+ 
  # lista tarefas  
  $tarefas = [];
  $sqlselect = "SELECT * FROM tarefas ORDER BY data_criacao DESC";
@@ -36,8 +35,16 @@ $conn =new mysqli($localhost,$usuario,$senha,$database);
 
     } 
 }
+#APAGAR
+if(isset($_GET['delete'])){
+$id = intval($_GET['delete']);
+$sqlDelete = "DELETE FROM tarefas WHERE id = $id";
 
 
+if($conn->query($sqlDelete) === TRUE){
+    header("location: todo-list2.php");
+}
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,13 +62,16 @@ $conn =new mysqli($localhost,$usuario,$senha,$database);
         <button type="submit">Adicionar</button> 
     </form>
 
-    <h2>Suas tarefas</h2>
+    <h2>Suas tarefas 🤪</h2>
     <?php if(!empty($tarefas)):?>
     <ul>
      <?php foreach($tarefas as $tarefas):?>
         <li>
         <?php echo $tarefas ['descricao']?>
+        <a href="todo-list2.php?delete=<?php echo $tarefas ['id']?>">Excluir</a>
+
         </li>
+
      <?php endforeach;?>
     </ul>
     <?php else:?>
