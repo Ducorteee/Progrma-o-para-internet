@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>To-Do List (MVC)</title>
+    <style>
+        body{
+            background-color: aquamarine;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,9 +23,11 @@
         <ul>
             <?php foreach ($tarefas as $tarefa): ?>
                 <li>
-                    <?php echo htmlspecialchars($tarefa['descricao']); ?>
-                    <a href="index.php?action=excluir&delete=<?php echo $tarefa['id']; ?>">Excluir</a>
-                </li>
+                <?php echo htmlspecialchars($tarefa['descricao']); ?>
+               <a href="index.php?action=excluir&id=<?php echo $tarefa['id']; ?>">Excluir</a>
+               <a href="index.php?action=editar&id=<?php echo $tarefa['id']; ?>">Editar</a>
+</li>
+
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
